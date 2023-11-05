@@ -1,31 +1,25 @@
-$('document').ready(function () {
-  // Function to update amenities list
-  let amenities = {};
-  $('INPUT[type="checkbox"]').change(function () {
-    if ($(this).is(':checked')) {
-      amenities[$(this).attr('data-id')] = $(this).attr('data-name');
+$(document).ready(function () {
+  let checkedAmenities = {};
+  $(document).on('change', "input[type='checkbox']", function () {
+    if (this.checked) {
+      checkedAmenities[$(this).data('id')] = $(this).data('name');
     } else {
-      delete amenities[$(this).attr('data-id')];
+      delete checkedAmenities[$(this).data('id')];
     }
-    $('.amenities H4').text(Object.values(amenities).join(', '));
+    let lst = Object.values(checkedAmenities);
+    if (lst.length > 0) {
+      $('div.amenities > h4').text(Object.values(checkedAmenities).join(', '));
+    } else {
+      $('div.amenities > h4').html('&nbsp;');
+    }
   });
-  const apiUrl = 'http://0.0.0.0:5001/api/v1/status/';
-  // Function to update the status based on the API response
-  function updateApiStatus() {
-    $.get(apiUrl, function (data) {
+  $.get('http://0.0.0.0:5001/api/v1/status/', function (data, textStatus) {
+    if (textStatus === 'success') {
       if (data.status === 'OK') {
         $('#api_status').addClass('available');
       } else {
         $('#api_status').removeClass('available');
       }
-    }).fail(function () {
-      $('#api_status').removeClass('available');
-    });
-  }
-
-  // Call the function to update the status initially
-  updateApiStatus();
-
-  // Set an interval to periodically update the status
-  setInterval(updateApiStatus, 5000); // Update every 5 seconds
+    }
+  });
 });
