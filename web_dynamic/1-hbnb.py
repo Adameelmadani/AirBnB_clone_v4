@@ -26,10 +26,10 @@ def hbnb_filters(the_id=None):
     places = storage.all('Place').values()
     users = dict([user.id, "{} {}".format(user.first_name, user.last_name)]
                  for user in storage.all('User').values())
-    stash_id = (str(uuid.uuid4()))
+    catch_id = (str(uuid.uuid4()))
     return render_template('1-hbnb.html', states=states,
                            amenitys=amenitys, places=places,
-                           users=users, stash_id=stash_id)
+                           users=users, catch_id=catch_id)
 
 
 if __name__ == "__main__":
