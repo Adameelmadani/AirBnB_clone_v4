@@ -20,7 +20,7 @@ $('document').ready(function () {
     success: function (data) {
       $('SECTION.places').append(data.map(place => {
         return `<ARTICLE>
-                  <DIV class="title">
+                  <DIV class="title_box">
                     <H2>${place.name}</H2>
                     <DIV class="price_by_night">
                       ${place.price_by_night}
