@@ -1,8 +1,8 @@
 $('document').ready(function () {
   const api = 'http://' + window.location.hostname;
 
-  $.get(api + ':5001:/api/v1/status/', function (response) {
-    if (response.status === 'OK') {
+  $.get('http://intellipow.tech:5001:/api/v1/status/', function (data) {
+    if (data.status === 'OK') {
       $('DIV#api_status').addClass('available');
     } else {
       $('DIV#api_status').removeClass('available');
